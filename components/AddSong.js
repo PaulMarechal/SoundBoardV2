@@ -1,23 +1,39 @@
-import React from 'react';
-import { StyleSheet, Button, TextInput, Text,Linking, View, Image } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, Button, TextInput, Text,Linking, View, Image, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
+import {Audio} from 'expo-av'
+
+
 
 class AddSong extends React.Component {
 
   constructor(props){
     super(props)
       this.state = { 
-        idSong: props.route.params?.idSong,
-        nameSong: props.route.params?.nameSong,
-        artistSong: props.route.params?.artistSong,
-        urlSong: props.route.params?.urlSong,
+        id: props.route.params?.id,
+        name: props.route.params?.name,
+        username: props.route.params?.username,
+        durationFinal: props.route.params?.durationFinal,
+        description: props.route.params?.description,
+        imageUrl: props.route.params?.imageUrl,
+        // preview: props.route.params?.preview,
         adding: false,
     }
+    // console.log(preview)
   }
 
   toggleFavorite(){
-    const song = {id: this.state.idSong, name: this.state.nameSong, artist: this.state.artistSong, note: this.state.noteSong}
+    const song = {
+      id: this.state.id, 
+      name: this.state.name, 
+      username: this.state.username, 
+      durationFinal: this.state.duration, 
+      imageUrl: this.state.images, 
+      // preview: this.state.preview, 
+      image: this.state.image
+    }
+
     const action = {type: "TOGGLE_FAVORITE", value: song}
     this.props.dispatch(action)
     this.props.navigation.navigate('Favoris')
@@ -31,20 +47,39 @@ class AddSong extends React.Component {
     }
   }
 
-  render () {
 
-  const {adding, nameSong, artistSong, urlSong} = this.state
-    
+  render () {
+  
+  const {adding, name, username, durationFinal, description, imageUrl, preview, count, id} = this.state;
+  console.log("///////////////")
+  // console.log("state : ")
+  // console.log(this.state)
+  // console.log("id : " + id)
+  // console.log("name : " + name)
+  // console.log("username : " + username)
+  // console.log("image : " + imageUrl)
+  // console.log("duration :" + durationFinal)
+  // console.log("preview : " + preview)
+  console.log("description : " + description)
+  console.log("/////////////////////")
+
     return (
       <View style={styles.container}>
-        <Text style={styles.artistName}>👤 {artistSong}</Text>
-        <Text style={styles.songName}>🎵 {nameSong}</Text>     
-        <Text>Ecouter la musique :  </Text> 
+        <Image style={styles.image} source={{ uri: imageUrl }}/>
+        <Text style={styles.artistName}>🎵 {name}</Text>     
+        <Text style={styles.artistName}>👤 {username}</Text>
+        <Text style={styles.artistName}>#️⃣ {id}</Text>     
+        <Text style={styles.artistName}>⏱ {durationFinal}</Text>  
+                            
+          <View style={styles.descriptionSong}>
+            <ScrollView>
+              <Text style={styles.descriptionTextSong}> {description}</Text>     
+            </ScrollView>
+          </View>  
+          
+  
 
-        <View style={styles.buttonMusique}>
-          <Button title="Aller sur iTunes" onPress={ ()=>{ Linking.openURL(`${urlSong}`)}} />
-        </View>
-
+      
 
         {!adding && ( 
         <View style={styles.buttonFav}>
@@ -53,6 +88,7 @@ class AddSong extends React.Component {
             onPress={() => this.setState({adding: true})}
           />
         </View>
+        
         )}
         {adding && 
         (
@@ -86,6 +122,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 10
   },
+
+  descriptionSong: {
+
+    backgroundColor: '#f5f2f2', 
+    marginTop: 10,
+    marginRight: 10, 
+    borderRadius: 8,
+    height: 160
+  }, 
+
   songName: {
     fontSize: 25, 
     color: '#1B1C1E', 
@@ -99,9 +145,19 @@ const styles = StyleSheet.create({
     color: '#000', 
     paddingLeft: 10 
   },
+
+  descriptionTextSong: {
+    marginTop: 10, 
+    marginLeft: 10, 
+    marginRight: 10,
+    fontSize: 20, 
+    color: '#1F1F1F'
+  }, 
+
   inputContainer: {
     paddingTop: 15
   },
+
   buttonFav: {
     marginTop: 20, 
     marginBottom: 20, 
@@ -128,6 +184,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9'
 
   }, 
+
+  image: {
+    width: 305,
+    height: 120,
+    margin: 5,
+    backgroundColor: 'gray', 
+    borderRadius: 8, 
+    marginTop: 20, 
+  },
+
   resumeInput: {
     borderColor: '#CCCCCC',
     borderTopWidth: 1,
@@ -136,6 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingTop: 5,
   },
+
   textInput: {
     borderColor: '#fff',
     borderTopWidth: 1,

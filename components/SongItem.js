@@ -1,24 +1,67 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button } from 'react-native'
+import { StyleSheet, View, Text, Image, Button, useState } from 'react-native'
 import { connect } from 'react-redux';
+import { Audio } from 'expo-av';
+
 
 function SongItem(props){
     const {song, seeDetails } = props
+    const [sound, setSound] = React.useState();
+
+    console.log(song)
+
+    const urlSong = song.previews["preview-hq-mp3"]
+    const imageUrl = song.images["waveform_l"]
+
+    const duration = song.duration
+    const durationFinal = duration.toFixed(2);
+
+    async function playSound(urlSong) {
+        console.log('Loading Sound');
+
+        const { sound } = await Audio.Sound.createAsync(
+            { uri:urlSong}, 
+            { shouldPlay:true}
+        );
+        setSound(sound);
+
+        console.log('Playing Sound');
+        await sound.playAsync(); 
+    }
+
+  React.useEffect(() => {
+    return sound ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync(); 
+        } : undefined;
+    }, [sound]);
+
     return (
         <View style={styles.main_container}>
+        <Image
+            style={styles.image}
+            source={{ uri: imageUrl }}
+        />
             <View style={styles.content_container}>
                 <View style={styles.header_container}>
-                    <Text style={styles.title_text}>{song.trackName}</Text>
+                    <Text style={styles.title_text}>{song.name}</Text>
                 </View>
                 <View style={styles.description_container}>
-                    <Text style={styles.description_text}>{song.artistName}</Text>
+                    <Text style={styles.description_text}>{song.username}</Text>
+                    <Text style={styles.description_text}>{durationFinal} secondes</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button
-                        onPress={() => seeDetails(song.trackId, song.artworkUrl60, song.trackName, song.artistName, song.trackViewUrl)}
-                        title={"Infos"}
-                        color="tomato"
-                    />
+                    <View style={styles.buttonInfo}>
+                        <Button
+                            onPress={() => seeDetails(song.id, song.name, song.username, imageUrl, durationFinal, urlSong, song.description)}
+                            title={"Infos"}
+                            color="tomato"
+                        />
+                    </View>
+                    
+                    <View style={styles.buttonPlay}>
+                        <Button style={styles.button} title="▶️" onPress={() => playSound(urlSong)} />
+                    </View>
                 </View>
             </View>
         </View>
@@ -26,65 +69,92 @@ function SongItem(props){
 }
 
 const styles = StyleSheet.create({
-main_container: {
-    height: 160,
-    flexDirection: 'row',
-    borderColor: '#f9f9f9',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    marginBottom: 15, 
-    marginRight: 20, 
-    marginLeft: 20,
-    backgroundColor: '#fff', 
-    paddingLeft: 10, 
-    borderRadius: 8,
-    shadowColor: '#121212',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-},
 
-buttonContainer: {
-    backgroundColor: '#f9f9f9',
-    marginRight: 60, 
-    marginLeft: 60, 
-    borderRadius: 8, 
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-},
+    buttonInfo: {
+        // top: -125,
+        // left: 180,
+        // position: 'relative',
+        // width: 80,
+        // height: 10,
+    }, 
 
-content_container: {
-    flex: 1,
-    margin: 5
-},
+    buttonPlay: {
+        top: -35,
+        left: 100,
+        position: 'relative',
+        width: 60,
+        height: 60,
+    },
 
-header_container: {
-    flex: 5,
-    flexDirection: 'row'
-},
+    main_container: {
+        height: 160,
+        flexDirection: 'row',
+        borderColor: '#f9f9f9',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        paddingBottom: 5,
+        marginBottom: 15, 
+        marginRight: 20, 
+        marginLeft: 20,
+        backgroundColor: '#fff', 
+        paddingLeft: 10, 
+        borderRadius: 8,
+        shadowColor: '#121212',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
 
-title_text: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginTop: 15,
-    flex: 2,
-},
+    image: {
+        width: 120,
+        height: 120,
+        margin: 5,
+        backgroundColor: 'gray', 
+        borderRadius: 8, 
+        marginTop: 20, 
+    },
 
-description_container: {
-    flex: 7
-},
+    buttonContainer: {
+        backgroundColor: '#f9f9f9',
+        marginRight: 60, 
+        marginLeft: 30, 
+        borderRadius: 8, 
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        height: 40,
+    },
 
-description_text: {
-    fontStyle: 'italic',
-    color: '#CCCCCC'
-},
-date_text: {
-    textAlign: 'right',
-    fontSize: 14
-}
+    content_container: {
+        flex: 1,
+        margin: 5
+    },
+
+    header_container: {
+        flex: 5,
+        flexDirection: 'row'
+    },
+
+    title_text: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 15,
+        flex: 2,
+    },
+
+    description_container: {
+        flex: 7
+    },
+
+    description_text: {
+        fontStyle: 'italic',
+        color: '#CCCCCC'
+    },
+    date_text: {
+        textAlign: 'right',
+        fontSize: 14
+    }
 })
 
 export default SongItem

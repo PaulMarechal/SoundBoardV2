@@ -24,10 +24,11 @@ class Search extends React.Component {
 
     changeSearch(text){
         this.searchedText = text;
+        console.log(text)
     }
 
-    seeDetails = (id, name, artist, url) => {
-         this.props.navigation.navigate('Ajouter', {idSong: id, nameSong: name, artistSong: artist, urlSong: url})
+    seeDetails = (id, name, username, imageUrl, durationFinal, preview, description) => {
+         this.props.navigation.navigate('Ajouter', {id: id, name: name, username: username, preview: preview, durationFinal:durationFinal, imageUrl:imageUrl, description: description})
     }
 
     render(){

@@ -12,7 +12,7 @@ function FavorisItem(props){
                 </View>
             
                 <View style={styles.description_container}>
-                    <Text style={styles.description_text}>{song.artist}</Text>
+                    <Text style={styles.description_text}>{song.id}</Text>
                 </View>
             </View>
         </View>
