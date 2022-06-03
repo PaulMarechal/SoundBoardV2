@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Button, TextInput, Text,Linking, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Button, TextInput, Text,Linking, View, Image, ScrollView, TouchableOpacity, Icon } from 'react-native';
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
 import {Audio} from 'expo-av'
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 
 
@@ -17,10 +18,19 @@ class AddSong extends React.Component {
         durationFinal: props.route.params?.durationFinal,
         description: props.route.params?.description,
         imageUrl: props.route.params?.imageUrl,
-        // preview: props.route.params?.preview,
+        urlSong: props.route.params?.urlSong,
         adding: false,
     }
-    // console.log(preview)
+  }
+
+  async playSound(urlSong){
+    console.log("song loading")
+    const {sound} = await Audio.Sound.createAsync(
+      {uri:urlSong}, 
+      {shouldPlay:true}
+    )
+    setSound(sound)
+    await sound.playAsync();
   }
 
   toggleFavorite(){
@@ -30,9 +40,11 @@ class AddSong extends React.Component {
       username: this.state.username, 
       durationFinal: this.state.duration, 
       imageUrl: this.state.images, 
-      // preview: this.state.preview, 
+      urlSong: this.state.urlSong, 
       image: this.state.image
     }
+
+    console.log(song)
 
     const action = {type: "TOGGLE_FAVORITE", value: song}
     this.props.dispatch(action)
@@ -50,16 +62,17 @@ class AddSong extends React.Component {
 
   render () {
   
-  const {adding, name, username, durationFinal, description, imageUrl, preview, count, id} = this.state;
+  const {adding, name, username, durationFinal, description, imageUrl, urlSong, count, id} = this.state;
+
   console.log("///////////////")
-  // console.log("state : ")
-  // console.log(this.state)
-  // console.log("id : " + id)
-  // console.log("name : " + name)
-  // console.log("username : " + username)
-  // console.log("image : " + imageUrl)
-  // console.log("duration :" + durationFinal)
-  // console.log("preview : " + preview)
+  console.log("state : ")
+  console.log(this.state)
+  console.log("id : " + id)
+  console.log("name : " + name)
+  console.log("username : " + username)
+  console.log("image : " + imageUrl)
+  console.log("duration :" + durationFinal)
+  console.log("url song : " + urlSong)
   console.log("description : " + description)
   console.log("/////////////////////")
 
@@ -70,12 +83,23 @@ class AddSong extends React.Component {
         <Text style={styles.artistName}>👤 {username}</Text>
         <Text style={styles.artistName}>#️⃣ {id}</Text>     
         <Text style={styles.artistName}>⏱ {durationFinal}</Text>  
-                            
-          <View style={styles.descriptionSong}>
-            <ScrollView>
-              <Text style={styles.descriptionTextSong}> {description}</Text>     
-            </ScrollView>
-          </View>  
+        <View style={styles.buttonPlay}>
+          <TouchableOpacity style={styles.button} onPress={() => this.playSound(urlSong)}>
+            <Text>
+              <Ionicons name={"play-circle-outline"} size={80} color={'#1B1C1E'} />
+
+              
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+
+             
+        <View style={styles.descriptionSong}>
+          <ScrollView>
+            <Text style={styles.descriptionTextSong}> {description}</Text>     
+          </ScrollView>
+        </View>  
           
   
 
@@ -123,11 +147,18 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
 
-  descriptionSong: {
+  buttonPlay: {
+    top: -85,
+    left: 225,
+    position: 'relative',
 
+  },
+
+  descriptionSong: {
     backgroundColor: '#f5f2f2', 
     marginTop: 10,
     marginRight: 10, 
+    marginTop: -75,
     borderRadius: 8,
     height: 160
   }, 

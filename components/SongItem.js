@@ -53,7 +53,7 @@ function SongItem(props){
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonInfo}>
                         <Button
-                            onPress={() => seeDetails(song.id, song.name, song.username, imageUrl, durationFinal, urlSong, song.description)}
+                            onPress={() => seeDetails(song.id, song.name, song.username, durationFinal, song.description, imageUrl, urlSong)}
                             title={"Infos"}
                             color="tomato"
                         />

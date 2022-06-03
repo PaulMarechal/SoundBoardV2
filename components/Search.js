@@ -27,8 +27,8 @@ class Search extends React.Component {
         console.log(text)
     }
 
-    seeDetails = (id, name, username, imageUrl, durationFinal, preview, description) => {
-         this.props.navigation.navigate('Ajouter', {id: id, name: name, username: username, preview: preview, durationFinal:durationFinal, imageUrl:imageUrl, description: description})
+    seeDetails = (id, name, username, durationFinal, description, imageUrl, urlSong) => {
+         this.props.navigation.navigate('Ajouter', {id: id, name: name, username: username, durationFinal:durationFinal, description: description, urlSong: urlSong, imageUrl:imageUrl})
     }
 
     render(){
