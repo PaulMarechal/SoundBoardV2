@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Audio } from 'expo-av';
 
 
-function SongItem(props){
+function SoundItem(props){
     const {song, seeDetails } = props
     const [sound, setSound] = React.useState();
 
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SongItem
+export default SoundItem

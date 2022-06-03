@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, StyleSheet, TextInput, FlatList, Text, ActivityIndicator } from 'react-native';
-import SongItem from './SongItem'
+import SoundItem from './SoundItem'
 import { getSample } from '../API/searchApi'
 
 class Search extends React.Component {
@@ -45,7 +45,7 @@ class Search extends React.Component {
                         data={this.state.songs}
                         keyExtractor={(item) => item.trackId}
                         onEndReachedThreshold={0.25}
-                        renderItem={({ item }) => <SongItem song={item}  seeDetails={this.seeDetails} />}
+                        renderItem={({ item }) => <SoundItem song={item}  seeDetails={this.seeDetails} />}
                     /> 
                     ) : ( 
                     <View style={styles.indicator} >

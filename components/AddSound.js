@@ -7,7 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 
 
-class AddSong extends React.Component {
+class AddSound extends React.Component {
 
   constructor(props){
     super(props)
@@ -83,28 +83,21 @@ class AddSong extends React.Component {
         <Text style={styles.artistName}>👤 {username}</Text>
         <Text style={styles.artistName}>#️⃣ {id}</Text>     
         <Text style={styles.artistName}>⏱ {durationFinal}</Text>  
+
         <View style={styles.buttonPlay}>
           <TouchableOpacity style={styles.button} onPress={() => this.playSound(urlSong)}>
             <Text>
               <Ionicons name={"play-circle-outline"} size={80} color={'#1B1C1E'} />
-
-              
             </Text>
           </TouchableOpacity>
         </View>
-
-
-             
+   
         <View style={styles.descriptionSong}>
           <ScrollView>
             <Text style={styles.descriptionTextSong}> {description}</Text>     
           </ScrollView>
         </View>  
           
-  
-
-      
-
         {!adding && ( 
         <View style={styles.buttonFav}>
           <Button 
@@ -117,7 +110,7 @@ class AddSong extends React.Component {
         {adding && 
         (
           <>
-            <View style={styles.buttonMusique}>
+            <View style={styles.buttonFav}>
               <Button title={this.displayAction()} onPress={() => this.toggleFavorite()} />
             </View>
           </>
@@ -213,7 +206,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 40, 
     backgroundColor: '#f9f9f9'
-
   }, 
 
   image: {
@@ -253,4 +245,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AddSong);
+export default connect(mapStateToProps)(AddSound);

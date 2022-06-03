@@ -3,8 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from '../components/Search';
-import AddSong from '../components/AddSong';
-import SongBoard from '../components/SongBoard';
+import AddSound from '../components/AddSound';
+import SoundBoard from '../components/SoundBoard';
 import Favoris from '../components/Favoris';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -15,7 +15,7 @@ function ListStackScreen() {
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen name="Soundboard V2" component={Search} />
-      <SettingsStack.Screen name="Ajouter" component={AddSong} />
+      <SettingsStack.Screen name="Ajouter" component={AddSound} />
     </SettingsStack.Navigator>
   );
 }
@@ -43,7 +43,7 @@ export default function Navigation() {
           tabBarInactiveTintColor: "grey",
         })}
       >
-        <Tab.Screen name="Board" component={SongBoard} />
+        <Tab.Screen name="Board" component={SoundBoard} />
         <Tab.Screen name="Recherche" component={ListStackScreen} />
         <Tab.Screen name="Favoris" component={Favoris} />
       </Tab.Navigator>
