@@ -38,10 +38,9 @@ class AddSound extends React.Component {
       id: this.state.id, 
       name: this.state.name, 
       username: this.state.username, 
-      durationFinal: this.state.duration, 
-      imageUrl: this.state.images, 
-      urlSong: this.state.urlSong, 
-      image: this.state.image
+      durationFinal: this.state.durationFinal, 
+      imageUrl: this.state.imageUrl, 
+      urlSong: this.state.urlSong
     }
 
     console.log(song)
@@ -82,7 +81,7 @@ class AddSound extends React.Component {
         <Text style={styles.artistName}>🎵 {name}</Text>     
         <Text style={styles.artistName}>👤 {username}</Text>
         <Text style={styles.artistName}>#️⃣ {id}</Text>     
-        <Text style={styles.artistName}>⏱ {durationFinal}</Text>  
+        <Text style={styles.artistName}>⏱ {durationFinal} secondes</Text>  
 
         <View style={styles.buttonPlay}>
           <TouchableOpacity style={styles.button} onPress={() => this.playSound(urlSong)}>
@@ -194,6 +193,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 10, 
     backgroundColor: '#f9f9f9'
+  },
+
+  buttonTest: {
+    marginBottom: 20, 
+    marginRight: 50, 
+    marginLeft: 50, 
+    borderRadius: 8,
+    shadowColor: '#121212',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    marginTop: 10, 
+    zIndex: 3,
+    backgroundColor: 'red'
   },
   buttonMusique: {
     marginBottom: 20, 

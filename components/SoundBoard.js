@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, FlatList, Button, TextInput, Text,Linking, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, Button, TextInput, Text,Linking, View, Image, TouchableOpacity, Modal, Pressable, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
 import { Audio } from 'expo-av';
+import Favoris from '../components/Favoris';
+import FavorisItem from './FavorisItem'
 
 
-export default function App() {
+export default function App(props) {
     const [sound, setSound, ] = React.useState();
+    const [modalVisible, setModalVisible] = useState(false);
 
     const song1 = "https://cdn.freesound.org/previews/186/186942_2594536-hq.mp3"
     const song2 = "https://cdn.freesound.org/previews/440/440931_9015615-hq.mp3"
@@ -17,6 +20,27 @@ export default function App() {
     const song7 = "https://cdn.freesound.org/previews/179/179946_3342732-hq.mp3"
     const song8 = "https://cdn.freesound.org/previews/185/185078_3342732-hq.mp3"
 
+    const propsTest = props
+    console.log(sound)
+
+  
+
+
+    // const {adding, name, username, durationFinal, description, imageUrl, urlSong, count, id} = this.state;
+
+
+    // const songTest = {
+    //   id: this.state.id, 
+    //   name: this.state.name, 
+    //   username: this.state.username, 
+    //   durationFinal: this.state.durationFinal, 
+    //   imageUrl: this.state.imageUrl, 
+    //   urlSong: this.state.urlSong
+    // }
+
+    // console.log(/////*********/////);
+    // console.log(props)
+    // console.log(/////*********/////);
 
     async function playSound(song) {
         console.log('Loading Sound');
@@ -26,6 +50,7 @@ export default function App() {
             { shouldPlay:true}
         );
         setSound(sound);
+        console.log(favoris)
 
         console.log('Playing Sound');
         await sound.playAsync(); 
@@ -40,8 +65,35 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+    {/* test  */}
+
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+            }}
+        >
+            <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+                <Text style={styles.modalText}>Choisir une musique</Text>
+                    <Favoris/>  
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+                >
+                    {/* <View component={Favoris} /> */}
+                <Text style={styles.textStyle}>Fermer</Text>
+                </Pressable>
+            </View>
+            </View>
+        </Modal>
+
+    {/* fin test  */}
         {/* Song 1 | Bleu */}
-        <TouchableOpacity onPress={() => { playSound(song1) }} onLongPress={() => { playSound(song2) }}>
+        <TouchableOpacity onPress={() => { playSound(song1) }} onLongPress={() => { setModalVisible(true) }}>
             <View style={styles.box1}>
                 {/* <Button style={styles.buttonContainer1} title="Sound 1" onPress={() => playSound()} /> */}
                 {/* <TouchableOpacity onPress={() => { console.log("onPress") }} onLongPress={() => { console.log("onLongPress") }}></TouchableOpacity> */}
@@ -200,7 +252,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ff0000',
         padding: 10, 
         margin: 10
-
     },
 
     button: {
@@ -212,4 +263,47 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     }, 
+    // test
+    centeredView: {
+    flex: 1,
+    // justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20
+  },
+  modalView: {
+    margin: 30,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 70,
+    paddingTop: 10,
+    // alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginTop: 30,
+    textAlign: "center"
+  }
 })

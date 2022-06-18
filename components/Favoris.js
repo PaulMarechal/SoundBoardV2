@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
     marginTop: 30, 
     flex: 1, 
     marginBottom: 15, 
-    marginRight: 20, 
-    marginLeft: 20,
+    marginRight: -60, 
+    marginLeft: -60,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

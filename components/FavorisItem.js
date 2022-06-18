@@ -1,18 +1,38 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, Button } from 'react-native'
 import { connect } from 'react-redux';
+import { Audio } from 'expo-av';
 
 function FavorisItem(props){
     const { song } = props
+    // console.log("//////////")
+    console.log(song.urlSong)
+    // console.log("//////////")
+
+    async function playSound(urlSong) {
+      console.log('Loading Sound')
+      const { sound } = await Audio.Sound.createAsync(
+          { uri: song.urlSong}, 
+          { shouldPlay:true}
+      );
+      setSound(sound)
+      console.log('Playing Sound');
+      await sound.playAsync(); 
+    }
     return (
         <View style={styles.main_container}>
+          <Image style={styles.image} source={{ uri: song.imageUrl }} />
             <View style={styles.content_container}>
                 <View style={styles.header_container}>
                     <Text style={styles.titreMusique}>{song.name}</Text>
                 </View>
-            
                 <View style={styles.description_container}>
-                    <Text style={styles.description_text}>{song.id}</Text>
+                    <Text>{song.username}</Text>
+                    <Text>{song.durationFinal} secondes</Text>
+                    <Text>{song.id}</Text>
+                </View>
+                <View style={styles.buttonPlay}>
+                        <Button style={styles.button} title="▶️" onPress={() => playSound(props)} />
                 </View>
             </View>
         </View>
@@ -22,13 +42,14 @@ function FavorisItem(props){
 const styles = StyleSheet.create({
   main_container: {
     height: 160,
+    width: 300,
     flexDirection: 'row',
     borderColor: '#fff',
     borderTopWidth: 1,
     borderBottomWidth: 1,
     paddingBottom: 5,
     backgroundColor: '#fff', 
-    paddingLeft: 10, 
+    // paddingLeft: 10, 
     borderRadius: 8,
     shadowColor: '#121212',
     shadowOffset: {width: -2, height: 4},
@@ -39,6 +60,14 @@ const styles = StyleSheet.create({
   content_container: {
     flex: 1,
     margin: 5
+  },
+  image: {
+    width: 120,
+    height: 120,
+    margin: 5,
+    backgroundColor: 'gray', 
+    borderRadius: 8, 
+    marginTop: 20, 
   },
   header_container: {
     flex: 5,

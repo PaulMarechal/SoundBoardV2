@@ -70,14 +70,6 @@ function SoundItem(props){
 
 const styles = StyleSheet.create({
 
-    buttonInfo: {
-        // top: -125,
-        // left: 180,
-        // position: 'relative',
-        // width: 80,
-        // height: 10,
-    }, 
-
     buttonPlay: {
         top: -35,
         left: 100,
