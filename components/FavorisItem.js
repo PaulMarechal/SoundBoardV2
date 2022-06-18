@@ -4,19 +4,18 @@ import { connect } from 'react-redux';
 import { Audio } from 'expo-av';
 
 function FavorisItem(props){
+    // retun all informations obj ( duration, id, imageURL, name, urlSong, username)
     const { song } = props
-    // console.log("//////////")
-    console.log(song.urlSong)
-    // console.log("//////////")
 
+    // To play song and return fav item informations on fav tab 
     async function playSound(urlSong) {
-      console.log('Loading Sound')
+      // Loading sound
       const { sound } = await Audio.Sound.createAsync(
           { uri: song.urlSong}, 
           { shouldPlay:true}
       );
       setSound(sound)
-      console.log('Playing Sound');
+      // Playing sound
       await sound.playAsync(); 
     }
     return (
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 5,
     backgroundColor: '#fff', 
-    // paddingLeft: 10, 
+    paddingLeft: 10, 
     borderRadius: 8,
     shadowColor: '#121212',
     shadowOffset: {width: -2, height: 4},

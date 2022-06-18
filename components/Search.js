@@ -4,7 +4,7 @@ import SoundItem from './SoundItem'
 import { getSample } from '../API/searchApi'
 
 class Search extends React.Component {
-  
+
     constructor(props){
         super(props)
         this.state = { 
@@ -14,7 +14,8 @@ class Search extends React.Component {
         this.searchedText = ""
     }
 
-    fetchMovie(){
+    // Fetch music informations 
+    fetchMusic(){
         this.setState({isLoading: true })
         if(this.searchedText.length > 3) {
             getSample(this.searchedText).then(data => this.setState({songs: data.results}));
@@ -22,11 +23,12 @@ class Search extends React.Component {
         this.setState({isLoading: false })
     }
 
+    // Input text
     changeSearch(text){
         this.searchedText = text;
-        console.log(text)
     }
 
+    // Details of searched music
     seeDetails = (id, name, username, durationFinal, description, imageUrl, urlSong) => {
          this.props.navigation.navigate('Ajouter', {id: id, name: name, username: username, durationFinal:durationFinal, description: description, urlSong: urlSong, imageUrl:imageUrl})
     }
@@ -38,7 +40,7 @@ class Search extends React.Component {
                 <TextInput style={styles.textInput} 
                     placeholder="Rechercher un artiste ou une musique... " 
                     onChangeText={(text)=>this.changeSearch(text)} 
-                    onSubmitEditing={() => this.fetchMovie()} 
+                    onSubmitEditing={() => this.fetchMusic()} 
                 />
                 {!this.state.isLoading ? (
                     <FlatList

@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import {Audio} from 'expo-av'
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-
-
 class AddSound extends React.Component {
 
+  // Props to have all necessary informations
   constructor(props){
     super(props)
       this.state = { 
@@ -23,8 +22,9 @@ class AddSound extends React.Component {
     }
   }
 
+  // To play sound with url 
   async playSound(urlSong){
-    console.log("song loading")
+    // Song loading
     const {sound} = await Audio.Sound.createAsync(
       {uri:urlSong}, 
       {shouldPlay:true}
@@ -33,6 +33,7 @@ class AddSound extends React.Component {
     await sound.playAsync();
   }
 
+  // Add to fav and redirect to fav page
   toggleFavorite(){
     const song = {
       id: this.state.id, 
@@ -43,15 +44,14 @@ class AddSound extends React.Component {
       urlSong: this.state.urlSong
     }
 
-    console.log(song)
-
     const action = {type: "TOGGLE_FAVORITE", value: song}
     this.props.dispatch(action)
     this.props.navigation.navigate('Favoris')
   }
 
+  // Add song to fav tab or remove it
   displayAction(){
-    if(this.props.favoritesSong.findIndex(item => item.id === this.state.idFilm) !== -1){
+    if(this.props.favoritesSong.findIndex(item => item.id) !== -1){
       return "Supprimer le sons"
     } else {
       return "Enregistrer"
@@ -61,19 +61,8 @@ class AddSound extends React.Component {
 
   render () {
   
+  // Adding music informations to display it on search or modal
   const {adding, name, username, durationFinal, description, imageUrl, urlSong, count, id} = this.state;
-
-  console.log("///////////////")
-  console.log("state : ")
-  console.log(this.state)
-  console.log("id : " + id)
-  console.log("name : " + name)
-  console.log("username : " + username)
-  console.log("image : " + imageUrl)
-  console.log("duration :" + durationFinal)
-  console.log("url song : " + urlSong)
-  console.log("description : " + description)
-  console.log("/////////////////////")
 
     return (
       <View style={styles.container}>

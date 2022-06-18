@@ -3,29 +3,28 @@ import { StyleSheet, View, Text, Image, Button, useState } from 'react-native'
 import { connect } from 'react-redux';
 import { Audio } from 'expo-av';
 
-
+// Display sound item
 function SoundItem(props){
     const {song, seeDetails } = props
     const [sound, setSound] = React.useState();
 
-    console.log(song)
-
+    // To return only this type of music (hq-mp3) 
     const urlSong = song.previews["preview-hq-mp3"]
+    // To return this kind of image 
     const imageUrl = song.images["waveform_l"]
 
     const duration = song.duration
+    // Duration with 2 numbers after comma
     const durationFinal = duration.toFixed(2);
 
     async function playSound(urlSong) {
-        console.log('Loading Sound');
-
+        // Song loading
         const { sound } = await Audio.Sound.createAsync(
             { uri:urlSong}, 
             { shouldPlay:true}
         );
         setSound(sound);
-
-        console.log('Playing Sound');
+        // Play song
         await sound.playAsync(); 
     }
 

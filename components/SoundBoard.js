@@ -11,6 +11,7 @@ export default function App(props) {
     const [sound, setSound, ] = React.useState();
     const [modalVisible, setModalVisible] = useState(false);
 
+    // All the base song on the Board Tab
     const song1 = "https://cdn.freesound.org/previews/186/186942_2594536-hq.mp3"
     const song2 = "https://cdn.freesound.org/previews/440/440931_9015615-hq.mp3"
     const song3 = "https://cdn.freesound.org/previews/404/404543_5121236-hq.mp3"
@@ -21,27 +22,8 @@ export default function App(props) {
     const song8 = "https://cdn.freesound.org/previews/185/185078_3342732-hq.mp3"
 
     const propsTest = props
-    console.log(sound)
 
-  
-
-
-    // const {adding, name, username, durationFinal, description, imageUrl, urlSong, count, id} = this.state;
-
-
-    // const songTest = {
-    //   id: this.state.id, 
-    //   name: this.state.name, 
-    //   username: this.state.username, 
-    //   durationFinal: this.state.durationFinal, 
-    //   imageUrl: this.state.imageUrl, 
-    //   urlSong: this.state.urlSong
-    // }
-
-    // console.log(/////*********/////);
-    // console.log(props)
-    // console.log(/////*********/////);
-
+    // To play song
     async function playSound(song) {
         console.log('Loading Sound');
 
@@ -65,8 +47,8 @@ export default function App(props) {
 
   return (
     <View style={styles.container}>
-    {/* test  */}
 
+        {/* Modal when long press to display fav musics */}
         <Modal
             animationType="slide"
             transparent={true}
@@ -91,66 +73,46 @@ export default function App(props) {
             </View>
         </Modal>
 
-    {/* fin test  */}
         {/* Song 1 | Bleu */}
         <TouchableOpacity onPress={() => { playSound(song1) }} onLongPress={() => { setModalVisible(true) }}>
-            <View style={styles.box1}>
-                {/* <Button style={styles.buttonContainer1} title="Sound 1" onPress={() => playSound()} /> */}
-                {/* <TouchableOpacity onPress={() => { console.log("onPress") }} onLongPress={() => { console.log("onLongPress") }}></TouchableOpacity> */}
-            </View>
+            <View style={styles.box1}></View>
         </TouchableOpacity>
 
         {/* Song 2 | Red  */}
-        <TouchableOpacity onPress={() => { playSound(song2) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box2}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song2) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box2}></View>
         </TouchableOpacity>
 
         {/* Song 3 | Purple */}
-        <TouchableOpacity onPress={() => { playSound(song3) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box3}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song3) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box3}></View>
         </TouchableOpacity>
 
         {/* Song 4 |  Orange*/}
-        <TouchableOpacity onPress={() => { playSound(song4) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box4}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song4) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box4}></View>
         </TouchableOpacity>
 
         {/* Song 5 | Green */}
-        <TouchableOpacity onPress={() => { playSound(song5) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box5}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song5) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box5}></View>
         </TouchableOpacity>
 
         {/* Song 6 | Bleu (darker) */}
-        <TouchableOpacity onPress={() => { playSound(song6) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box6}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song6) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box6}></View>
         </TouchableOpacity>
 
         {/* Song 7 | Yellow*/}
-        <TouchableOpacity onPress={() => { playSound(song7) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box7}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song7) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box7}></View>
         </TouchableOpacity>
         
         {/* Song 8 | Green (lighter) */}
-        <TouchableOpacity onPress={() => { playSound(song8) }} onLongPress={() => { playSound(song2) }}>
-            <View style={styles.box8}>
-
-            </View>
+        <TouchableOpacity onPress={() => { playSound(song8) }} onLongPress={() => { setModalVisible(true) }}>
+            <View style={styles.box8}></View>
         </TouchableOpacity>
     </View>
-
-    
   )
 }
 
@@ -234,7 +196,6 @@ const styles = StyleSheet.create({
         height: 140,
     },
     
-
     containerRow: {
         justifyContent: 'row',
     }, 
@@ -263,47 +224,51 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     }, 
-    // test
+
     centeredView: {
-    flex: 1,
-    // justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20
-  },
-  modalView: {
-    margin: 30,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 70,
-    paddingTop: 10,
-    // alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
+        flex: 1,
+        alignItems: "center",
+        marginTop: 20
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginTop: 30,
-    textAlign: "center"
-  }
+
+    modalView: {
+        margin: 30,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 70,
+        paddingTop: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+        width: 0,
+        height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+
+    modalText: {
+        marginTop: 30,
+        textAlign: "center"
+    }
 })

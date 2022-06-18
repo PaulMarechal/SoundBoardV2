@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 import FavorisItem from './FavorisItem'
 import { connect } from 'react-redux';
 
+// Return fav page
 class Favoris extends React.Component {
     render () {
         return(
