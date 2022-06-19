@@ -47,7 +47,6 @@ export default function App(props) {
 
   return (
     <View style={styles.container}>
-
         {/* Modal when long press to display fav musics */}
         <Modal
             animationType="slide"
@@ -66,7 +65,6 @@ export default function App(props) {
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
                 >
-                    {/* <View component={Favoris} /> */}
                 <Text style={styles.textStyle}>Fermer</Text>
                 </Pressable>
             </View>

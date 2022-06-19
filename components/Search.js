@@ -14,6 +14,11 @@ class Search extends React.Component {
         this.searchedText = ""
     }
 
+    // Input text
+    changeSearch(text){
+        this.searchedText = text;
+    }
+
     // Fetch music informations 
     fetchMusic(){
         this.setState({isLoading: true })
@@ -21,11 +26,6 @@ class Search extends React.Component {
             getSample(this.searchedText).then(data => this.setState({songs: data.results}));
         }
         this.setState({isLoading: false })
-    }
-
-    // Input text
-    changeSearch(text){
-        this.searchedText = text;
     }
 
     // Details of searched music
